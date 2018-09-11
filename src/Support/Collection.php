@@ -1,5 +1,5 @@
 <?php
-namespace IEXBase\RippleAPI\Objects;
+namespace IEXBase\RippleAPI\Support;
 
 use ArrayAccess;
 use ArrayIterator;
@@ -106,6 +106,33 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
     public function map(\Closure $callback)
     {
         return new static(array_map($callback, $this->items, array_keys($this->items)));
+    }
+
+    /**
+     * Получить первый элемент из коллекции.
+     *
+     * @param  callable|null  $callback
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public function first(callable $callback = null, $default = null)
+    {
+        return Arr::first($this->items, $callback, $default);
+    }
+
+
+    /**
+     * Запускаем фильтр по каждому из элементов.
+     *
+     * @param  callable|null  $callback
+     * @return static
+     */
+    public function filter(callable $callback = null)
+    {
+        if ($callback) {
+            return new static(Arr::where($this->items, $callback));
+        }
+        return new static(array_filter($this->items));
     }
 
     /**

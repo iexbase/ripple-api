@@ -2,6 +2,7 @@
 namespace IEXBase\RippleAPI\Support;
 
 use ArrayAccess;
+use Closure;
 
 class Arr
 {
@@ -29,6 +30,55 @@ class Arr
             return $array->offsetExists($key);
         }
         return array_key_exists($key, $array);
+    }
+
+    /**
+     * Вернуть значение по умолчанию для данного значения.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    public static function value($value)
+    {
+        return $value instanceof Closure ? $value() : $value;
+    }
+
+    /**
+     * Получаем первый элемент в массиве
+     *
+     * @param  array  $array
+     * @param  callable|null  $callback
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public static function first($array, callable $callback = null, $default = null)
+    {
+        if (is_null($callback)) {
+            if (empty($array)) {
+                return self::value($default);
+            }
+            foreach ($array as $item) {
+                return $item;
+            }
+        }
+        foreach ($array as $key => $value) {
+            if (call_user_func($callback, $value, $key)) {
+                return $value;
+            }
+        }
+        return self::value($default);
+    }
+
+    /**
+     * Фильтрация массива с использованием заданного обратного вызова.
+     *
+     * @param  array  $array
+     * @param  callable  $callback
+     * @return array
+     */
+    public static function where($array, callable $callback)
+    {
+        return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
     }
 
     /**
