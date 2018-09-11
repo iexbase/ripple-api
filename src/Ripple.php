@@ -60,7 +60,7 @@ class Ripple
     */
     public function getPing() : array
     {
-        return $this->call('ping','/');
+        return $this->call('ping', '/');
     }
 
     /**
@@ -70,7 +70,7 @@ class Ripple
     */
     public function getServerInfo() : array
     {
-        return $this->call('server_info','/');
+        return $this->call('server_info', '/');
     }
 
     /**
@@ -80,7 +80,7 @@ class Ripple
     */
     public function getRandom() : array
     {
-        return $this->call('random','/');
+        return $this->call('random', '/');
     }
 
     /**
@@ -91,7 +91,7 @@ class Ripple
      */
     public function getAccounts($params = [])
     {
-        return $this->call('GET','/accounts', $params);
+        return $this->call('GET', '/accounts', $params);
     }
 
     /**
@@ -118,7 +118,7 @@ class Ripple
     public function getAccountBalances($address = null, $params = []) : array
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET',sprintf('/v2/accounts/%s/balances', $address), $params);
+        return $this->call('GET', sprintf('/v2/accounts/%s/balances', $address), $params);
     }
 
     /**
@@ -146,7 +146,7 @@ class Ripple
     public function getAccountOrder($address = null, $params = [])
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET',sprintf('/account/%s/orders', $address), $params);
+        return $this->call('GET', sprintf('/account/%s/orders', $address), $params);
     }
 
     /**
@@ -159,7 +159,7 @@ class Ripple
     public function getAccountTransactionHistory($address = null, $params = [])
     {
         $address = ($address == null ? $this->address : $address);
-        $response =  $this->call('GET',sprintf('/accounts/%s/transactions', $address), $params);
+        $response =  $this->call('GET', sprintf('/accounts/%s/transactions', $address), $params);
 
 
 
@@ -177,7 +177,7 @@ class Ripple
     public function getTransactionAccountAndSequence($address = null, $sequence = null, $params = [])
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET',sprintf('/v2/accounts/%s/transactions/%s', $address, $sequence), $params);
+        return $this->call('GET', sprintf('/v2/accounts/%s/transactions/%s', $address, $sequence), $params);
     }
 
     /**
@@ -190,7 +190,7 @@ class Ripple
     public function getAccountTransactionStats($address = null, $params = [])
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET',sprintf('/accounts/%s/stats/transactions', $address), $params);
+        return $this->call('GET', sprintf('/accounts/%s/stats/transactions', $address), $params);
     }
 
     /**
@@ -203,7 +203,7 @@ class Ripple
     public function getAccountValueStat($address = null, $params = [])
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET',sprintf('/accounts/%s/stats/value', $address), $params);
+        return $this->call('GET', sprintf('/accounts/%s/stats/value', $address), $params);
     }
 
     /**
@@ -215,7 +215,7 @@ class Ripple
      */
     public function getTransaction($hash = null, $params = [])
     {
-        $response = $this->call('GET','/transactions/'.$hash, $params);
+        $response = $this->call('GET', '/transactions/'.$hash, $params);
         return new TransactionObject($response['transaction']);
     }
 
@@ -226,7 +226,7 @@ class Ripple
     */
     public function getRippledVersion()
     {
-        return $this->call('GET','/network/rippled_versions');
+        return $this->call('GET', '/network/rippled_versions');
     }
 
     /**
@@ -236,7 +236,7 @@ class Ripple
     */
     public function getGateways()
     {
-        return $this->call('GET','/gateways');
+        return $this->call('GET', '/gateways');
     }
 
     /**
@@ -247,7 +247,7 @@ class Ripple
      */
     public function getGateway($gateway)
     {
-        return $this->call('GET','/gateways/'.$gateway);
+        return $this->call('GET', '/gateways/'.$gateway);
     }
 
     /**
@@ -258,7 +258,7 @@ class Ripple
      */
     public function getHealthCheck($params = [])
     {
-        return $this->call('GET','/health/api', $params);
+        return $this->call('GET', '/health/api', $params);
     }
 
     /**
@@ -269,7 +269,7 @@ class Ripple
      */
     public function getHealthImporter($params = [])
     {
-        return $this->call('GET','/health/importer', $params);
+        return $this->call('GET', '/health/importer', $params);
     }
 
     /**
@@ -280,7 +280,7 @@ class Ripple
      */
     public function getHealthNodesEtl($params = [])
     {
-        return $this->call('GET','/health/nodes_etl', $params);
+        return $this->call('GET', '/health/nodes_etl', $params);
     }
 
     /**
@@ -291,7 +291,7 @@ class Ripple
      */
     public function getHealthValidationsEtl($params = [])
     {
-        return $this->call('GET','/health/validations_etl', $params);
+        return $this->call('GET', '/health/validations_etl', $params);
     }
 
     /**
@@ -312,7 +312,7 @@ class Ripple
      */
     public function verifyTransaction($tx)
     {
-        return $this->call('tx','/', [
+        return $this->call('tx', '/', [
             'transaction'   =>  $tx
         ]);
     }
@@ -324,7 +324,7 @@ class Ripple
      */
     public function getTransactions($params = [])
     {
-        return $this->call('GET','/transactions', $params);
+        return $this->call('GET', '/transactions', $params);
     }
 
     /**
@@ -393,14 +393,14 @@ class Ripple
         if(in_array($method, ['GET','POST','PUT','DELETE'])) {
             return $this->client->sendRequest(
                 $method,
-                $path,
+                trim($path),
                 $params,
                 true
             );
         } else {
             return $this->client->sendRequest(
                 $method,
-                $path,
+                trim($path),
                 $params,
                 false
             );
