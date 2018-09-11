@@ -1,8 +1,6 @@
 # ripple-api
 A PHP API for interacting with the XRP Ledger
 
-# Usage
-
 ## Features
 
 + Issue [rippled API](https://ripple.com/build/rippled-apis/) requests
@@ -13,5 +11,5 @@ A PHP API for interacting with the XRP Ledger
 
 + [Ripple Developer Center](https://ripple.com/build/)
 
-# Donations
+## Donations
 Ripple: rKhWrsiQpUhcdjH3CkM8feHxcrsjSnEx9m
