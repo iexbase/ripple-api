@@ -16,7 +16,7 @@ curl -sS https://getcomposer.org/installer | php
 Then install the library:
 
 ```bash
-composer require iexbase/ripple-api
+> composer require iexbase/ripple-api
 ```
 
 Additional examples are available in the [examples](examples/) directory 
