@@ -9,13 +9,13 @@ Installation is possible using Composer.
 
 If you don't already use Composer, you can download the composer.phar binary:
 
-```
+```bash
 curl -sS https://getcomposer.org/installer | php
 ```
 
 Then install the library:
 
-```
+```bash
 composer require iexbase/ripple-api
 ```
 
