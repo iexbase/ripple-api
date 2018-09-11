@@ -2,8 +2,10 @@
   Ripple API
   <br>
 </h1>
+<h4 align="center">
+  A PHP API for interacting with the XRP Ledger
+</h4>
 
-A PHP API for interacting with the XRP Ledger
 
 ## Installation
 
