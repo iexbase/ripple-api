@@ -1,0 +1,48 @@
+{
+    "name": "iexbase/ripple-api",
+    "description": "A PHP API for interacting with Ripple",
+    "license": "MIT",
+    "type":   "library",
+    "support": {
+        "issues": "https://github.com/iexbase/ripple-api/issues",
+        "source": "https://github.com/iexbase/ripple-api"
+    },
+    "authors": [
+        {
+            "name": "Shamsudin Serderov",
+            "email": "steein.shamsudin@gmail.com"
+        }
+    ],
+    "keywords": [
+        "iexbase",
+        "ripple-lib",
+        "ripple-php",
+        "ripple-api",
+        "ripple-rest-api"
+    ],
+
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "^6.0",
+        "spatie/phpunit-snapshot-assertions": "^1.0"
+    },
+    "autoload": {
+        "files": [
+            "src/Support/helpers.php"
+        ],
+        "psr-4": {
+            "IEXBase\\RippleAPI\\": "src"
+        }
+    },
+
+    "config": {
+        "sort-packages": true
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
