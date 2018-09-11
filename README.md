@@ -10,3 +10,6 @@ A PHP API for interacting with the XRP Ledger
 ## More Information
 
 + [Ripple Developer Center](https://ripple.com/build/)
+
+# Donations
+Ripple: rKhWrsiQpUhcdjH3CkM8feHxcrsjSnEx9m
