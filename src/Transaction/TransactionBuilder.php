@@ -190,9 +190,9 @@ class TransactionBuilder implements TransactionBuilderContract
     /**
      * Получить DestinationTag
      *
-     * @return mixed
+     * @return string|int
      */
-    public function getDestinationTag() : int
+    public function getDestinationTag()
     {
         return $this->DestinationTag;
     }
