@@ -161,8 +161,6 @@ class Ripple
         $address = ($address == null ? $this->address : $address);
         $response =  $this->call('GET', sprintf('/accounts/%s/transactions', $address), $params);
 
-
-
         return new TransactionObject($response['transactions']);
     }
 
@@ -301,7 +299,7 @@ class Ripple
     */
     public function getFee()
     {
-        return $this->call('fee','/');
+        return $this->call('fee', '/');
     }
 
     /**
@@ -335,7 +333,7 @@ class Ripple
      */
     public function getStats($params = [])
     {
-        return $this->call('GET','/stats', $params);
+        return $this->call('GET', '/stats', $params);
     }
 
     /**
@@ -352,7 +350,7 @@ class Ripple
 
         if($closure instanceof \Closure)
         {
-            $response = $this->call('sign','/', $closure->call($payment, $payment));
+            $response = $this->call('sign', '/', $closure->call($payment, $payment));
             if($response['result']['status'] == 'success') {
                 $this->tx_blob = (new SignObject($response['result']))->getTxBlob();
             }
@@ -374,7 +372,7 @@ class Ripple
         ]);
 
         if(empty($result)) {
-            throw new \Exception('Указанный ключ не действителен');
+            throw new \Exception('Полученный подпись недействителен');
         } else {
             return $result;
         }
@@ -405,16 +403,5 @@ class Ripple
                 false
             );
         }
-
-//        $options = (isset($params) ? ['query' => $params] : null);
-//
-//        try
-//        {
-//            $response = $this->client->request(mb_strtoupper($method), $path, $options);
-//            return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
-//
-//        } catch (GuzzleException $e) {
-//            die($e);
-//        }
     }
 }

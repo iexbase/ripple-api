@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: steei
- * Date: 10.09.2018
- * Time: 16:03
- */
-
 namespace IEXBase\RippleAPI\Support;
-
 
 use ArrayAccess;
 

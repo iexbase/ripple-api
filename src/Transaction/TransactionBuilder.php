@@ -7,7 +7,9 @@ use IEXBase\RippleAPI\Support\Arr;
 class TransactionBuilder implements TransactionBuilderContract
 {
     /**
+     * Проверка транзакции
      *
+     * @var boolean
     */
     protected $offline = false;
 
@@ -54,6 +56,8 @@ class TransactionBuilder implements TransactionBuilderContract
     protected $DestinationTag = null;
 
     /**
+     * Если true, при построении транзакции не пытайтесь автоматически заполнять или проверять значения.
+     *
      * @return bool
      */
     public function isOffline(): bool
@@ -62,6 +66,7 @@ class TransactionBuilder implements TransactionBuilderContract
     }
 
     /**
+     * Уставливаем новое значение
      *
      * @param bool $offline
      * @return TransactionBuilder
@@ -187,7 +192,7 @@ class TransactionBuilder implements TransactionBuilderContract
      *
      * @return mixed
      */
-    public function getDestinationTag()
+    public function getDestinationTag() : int
     {
         return $this->DestinationTag;
     }
