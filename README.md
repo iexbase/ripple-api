@@ -23,7 +23,6 @@ Additional examples are available in the [examples](examples/) directory
 Use the Ripple
 
 ```php
-
 $address = "";
 $secret_key = "";
 
