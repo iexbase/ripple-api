@@ -133,7 +133,11 @@ class Ripple
         $address = ($address == null ? $this->address : $address);
         $response = $this->call('GET', sprintf('/accounts/%s/payments', $address), $params);
 
-        return new PaymentObject($response['payments']);
+        if($response['count'] == 1) {
+            return new PaymentObject($response['payments'][0]);
+        } else {
+            return $response['payments'];
+        }
     }
 
     /**
