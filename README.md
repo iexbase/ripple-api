@@ -1,4 +1,8 @@
-# ripple-api
+<h1 align="center">
+  Ripple API
+  <br>
+</h1>
+
 A PHP API for interacting with the XRP Ledger
 
 ## Installation
