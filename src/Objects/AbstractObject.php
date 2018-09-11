@@ -1,6 +1,8 @@
 <?php
 namespace IEXBase\RippleAPI\Objects;
 
+use IEXBase\RippleAPI\Support\Collection;
+
 abstract class AbstractObject extends Collection
 {
     /**

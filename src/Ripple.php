@@ -7,6 +7,7 @@ use IEXBase\RippleAPI\Objects\AccountObject;
 use IEXBase\RippleAPI\Objects\PaymentObject;
 use IEXBase\RippleAPI\Objects\SignObject;
 use IEXBase\RippleAPI\Objects\TransactionObject;
+use IEXBase\RippleAPI\Support\Collection;
 use IEXBase\RippleAPI\Transaction\TransactionBuilder;
 
 class Ripple
@@ -118,7 +119,9 @@ class Ripple
     public function getAccountBalances($address = null, $params = []) : array
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET', sprintf('/accounts/%s/balances', $address), $params);
+        $response =  $this->call('GET', sprintf('/accounts/%s/balances', $address), $params);
+
+        return $response;
     }
 
     /**
