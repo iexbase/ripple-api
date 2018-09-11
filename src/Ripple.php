@@ -118,7 +118,7 @@ class Ripple
     public function getAccountBalances($address = null, $params = []) : array
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET', sprintf('/v2/accounts/%s/balances', $address), $params);
+        return $this->call('GET', sprintf('/accounts/%s/balances', $address), $params);
     }
 
     /**
@@ -179,7 +179,7 @@ class Ripple
     public function getTransactionAccountAndSequence($address = null, $sequence = null, $params = [])
     {
         $address = ($address == null ? $this->address : $address);
-        return $this->call('GET', sprintf('/v2/accounts/%s/transactions/%s', $address, $sequence), $params);
+        return $this->call('GET', sprintf('/accounts/%s/transactions/%s', $address, $sequence), $params);
     }
 
     /**
@@ -354,7 +354,7 @@ class Ripple
 
         if($closure instanceof \Closure)
         {
-            $response = $this->call('sign', '/', $closure->call($payment, $payment));
+            $response = $this->call('sign', '/', $closure->call($payment,$payment));
             if($response['result']['status'] == 'success') {
                 $this->tx_blob = (new SignObject($response['result']))->getTxBlob();
             }
