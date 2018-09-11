@@ -9,7 +9,10 @@ Installation is possible using Composer.
 
 If you don't already use Composer, you can download the composer.phar binary:
 
+```
 curl -sS https://getcomposer.org/installer | php
+```
+
 Then install the library:
 
 ```
