@@ -3,6 +3,7 @@
     "description": "A PHP API for interacting with Ripple",
     "license": "MIT",
     "type":   "library",
+    "version": "1.0",
     "support": {
         "issues": "https://github.com/iexbase/ripple-api/issues",
         "source": "https://github.com/iexbase/ripple-api"
@@ -23,7 +24,8 @@
 
     "require": {
         "php": "^7.1",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/var-dumper": "^4.1"
     },
 
     "require-dev": {

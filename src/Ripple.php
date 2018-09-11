@@ -129,9 +129,9 @@ class Ripple
      *
      * @param null $address
      * @param array $params
-     * @return PaymentObject
+     * @return PaymentObject | array
      */
-    public function getAccountPayments($address = null, $params = []) : PaymentObject
+    public function getAccountPayments($address = null, $params = [])
     {
         $address = ($address == null ? $this->address : $address);
         $response = $this->call('GET', sprintf('/accounts/%s/payments', $address), $params);
@@ -216,11 +216,15 @@ class Ripple
      *
      * @param null $hash
      * @param array $params
-     * @return TransactionObject
+     * @return TransactionObject | array
      */
     public function getTransaction($hash = null, $params = [])
     {
         $response = $this->call('GET', '/transactions/'.$hash, $params);
+
+        if(isset($response['count']) and $response['count'] > 1) {
+            return $response['transactions'];
+        }
         return new TransactionObject($response['transaction']);
     }
 
