@@ -397,7 +397,7 @@ class Ripple
      * @param array $params
      * @return array
      */
-    public function call($method, $path, $params = [])
+    protected function call($method, $path, $params = [])
     {
         if(in_array($method, ['GET','POST','PUT','DELETE'])) {
             return $this->client->sendRequest(
