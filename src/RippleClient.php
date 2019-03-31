@@ -13,8 +13,15 @@ class RippleClient
 
     /**
      * @const string Ripple RPC URL
-    */
-    const BASE_RPC_URL = 'https://s2.ripple.com:51234';
+     */
+    const BASE_RPC_URL = 'https://s1.ripple.com:51234';
+
+    /**
+     * Base WSS Node
+     *
+     * @var string
+     */
+    protected $WSSNode;
 
     /**
      * Guzzle Http клиент
@@ -27,17 +34,21 @@ class RippleClient
      * Количество запросов
      *
      * @var integer
-    */
+     */
     protected $requestCount = 0;
 
     /**
      * Создаем новый объект RippleClient
      *
-     * @return void.
-    */
-    public function __construct()
+     * @param array $nodes
+     */
+    public function __construct($nodes = [])
     {
         $this->client = new Client();
+
+        if(array_key_exists('wss_node', $nodes)) {
+            $this->WSSNode = $nodes['wss_node'];
+        }
     }
 
     /**
@@ -73,6 +84,28 @@ class RippleClient
                     'body'  =>  json_encode($body)
                 ]);
             }
+            return $this->toArray($response->getBody()->getContents());
+
+        } catch (GuzzleException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * Отправляем запросы на сервер Ripple WSS
+     *
+     * @param $method
+     * @param $path
+     * @param array $options
+     * @return array
+     */
+    public function sendRequestWss($method, $path, $options = [])
+    {
+        $this->requestCount++;
+        try {
+            $url =  sprintf('%s%s', $this->WSSNode, $path);
+
+            $response = $this->client->request($method, $url, ['query' => $options]);
             return $this->toArray($response->getBody()->getContents());
 
         } catch (GuzzleException $e) {

@@ -1,13 +1,10 @@
 <?php
 namespace IEXBase\RippleAPI;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use IEXBase\RippleAPI\Objects\AccountObject;
 use IEXBase\RippleAPI\Objects\PaymentObject;
 use IEXBase\RippleAPI\Objects\SignObject;
 use IEXBase\RippleAPI\Objects\TransactionObject;
-use IEXBase\RippleAPI\Support\Collection;
 use IEXBase\RippleAPI\Transaction\TransactionBuilder;
 
 class Ripple
@@ -16,28 +13,28 @@ class Ripple
      * Адрес кошелька
      *
      * @var string
-    */
+     */
     protected $address;
 
     /**
      * Приватный ключ кошелька
      *
      * @var string
-    */
+     */
     protected $secret;
 
     /**
      * Ripple client service
      *
      * @var RippleClient
-    */
+     */
     protected $client;
 
     /**
      * Получаем Хэш подписанной транзакции
      *
      * @var string
-    */
+     */
     protected $tx_blob;
 
     /**
@@ -45,20 +42,21 @@ class Ripple
      *
      * @param $address
      * @param null $secret
+     * @param array $nodes
      */
-    public function __construct($address, $secret = null)
+    public function __construct($address, $secret = null, $nodes = [])
     {
         $this->address = $address;
         $this->secret = $secret;
 
-        $this->client = new RippleClient();
+        $this->client = new RippleClient($nodes);
     }
 
     /**
      * Получение пинга
      *
      * @return array
-    */
+     */
     public function getPing() : array
     {
         return $this->call('ping', '/');
@@ -68,7 +66,7 @@ class Ripple
      * Получаем детальную информацию о сервере
      *
      * @return array
-    */
+     */
     public function getServerInfo() : array
     {
         return $this->call('server_info', '/');
@@ -78,7 +76,7 @@ class Ripple
      * Генерация случайних чисел
      *
      * @return array
-    */
+     */
     public function getRandom() : array
     {
         return $this->call('random', '/');
@@ -232,7 +230,7 @@ class Ripple
      * Получение последних версий
      *
      * @return array
-    */
+     */
     public function getRippledVersion()
     {
         return $this->call('GET', '/network/rippled_versions');
@@ -242,7 +240,7 @@ class Ripple
      * Получаем список всех шлюзов
      *
      * @return array
-    */
+     */
     public function getGateways()
     {
         return $this->call('GET', '/gateways');
@@ -307,7 +305,7 @@ class Ripple
      * Получаем комиссию
      *
      * @return array
-    */
+     */
     public function getFee()
     {
         return $this->call('fee', '/');
@@ -390,6 +388,24 @@ class Ripple
     }
 
     /**
+     * Отправляем средства используя стронний сервер
+     *
+     * @param $options
+     * @return array
+     * @throws \Exception
+     */
+    public function sendAndSubmitForServer($options)
+    {
+        $result = $this->client->sendRequestWss('POST','/send-xrp', $options);
+
+        if(empty($result)) {
+            throw new \Exception('Транзакция не отправлена');
+        } else {
+            return $result;
+        }
+    }
+
+    /**
      * Базовая функция для формировании запросов
      *
      * @param $method
@@ -399,7 +415,7 @@ class Ripple
      */
     protected function call($method, $path, $params = [])
     {
-        if(in_array($method, ['GET','POST','PUT','DELETE'])) {
+        if(in_array($method, ['GET', 'POST', 'PUT', 'DELETE'])) {
             return $this->client->sendRequest(
                 $method,
                 trim($path),
