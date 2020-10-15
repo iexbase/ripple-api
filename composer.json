@@ -17,8 +17,7 @@
         "iexbase",
         "ripple-lib",
         "ripple-php",
-        "ripple-api",
-        "ripple-rest-api"
+        "ripple-api"
     ],
 
     "require": {
